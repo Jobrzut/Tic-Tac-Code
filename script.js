@@ -49,18 +49,24 @@ let gameboard = (function () {
     return {getBoard, putMark, resetBoard, isWon, isDraw};
 })();
 
-let game = (function () {
-    players = []
-    function startGame(firstName, secondName){
-        let playerOne = newPlayer(firstName,"x");
-        let playerTwo = newPlayer(secondName, "o");
-        players.push(playerOne,playerTwo)
-    }
-})()
 
-function newPlayer (name, mark) {
-    if (mark.toLowerCase() === "x" || mark.toLowerCase() === "o") {
-        mark = mark.toLowerCase();
-        return {name,mark}
+
+let players = (function () {
+    function newPlayer (name, mark) {
+        if (mark.toLowerCase() === "x" || mark.toLowerCase() === "o") {
+            mark = mark.toLowerCase();
+            return {name,mark}
+        }
     }
-}
+    
+    let playerOne, playerTwo;
+    function addPlayers(firstName, secondName){
+        playerOne = newPlayer(firstName,"x");
+        playerTwo = newPlayer(secondName, "o");
+    }
+
+    function showPlayers () {
+        return [playerOne, playerTwo]
+    }
+    return {addPlayers, showPlayers}
+})();
