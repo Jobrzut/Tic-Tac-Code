@@ -85,3 +85,31 @@ h2 {
 .bottom_text {
     align-self: flex-start;
 }
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-block: 20px;
+}
+
+.gameboard > div {
+    aspect-ratio: 1/1;
+    background-color: #252526;
+    cursor: pointer;
+}
+
+.x {
+    background: url("imgs/x.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+
+.o {
+    background: url("imgs/o.svg") no-repeat center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 95%;
+    
+}
