@@ -5,9 +5,16 @@ let gameboard = (function () {
         return [...board]
     }
 
-    function putMark(index,mark) {
-        if (0 <= index && index < 9) {
+    function putMark(index) {
+        if (0 <= index && index < 9 && board[index] == "" && isWon() == false && isDraw() == false) {
+            mark = game.showTurn().mark;
             board[index] = mark;
+            game.switchTurn();
+            if (isWon() !== false) {
+                console.log(`Winner: ${isWon()}`)
+            } else if (isDraw() !== false) {
+                console.log(`It's a draw!`)
+            }
         }
     }
 
@@ -69,4 +76,24 @@ let players = (function () {
         return [playerOne, playerTwo]
     }
     return {addPlayers, showPlayers}
+})();
+
+let game = (function () {
+    players.addPlayers("Julek", "Artur");
+    const gamePlayers = players.showPlayers();
+    let currentPlayer = gamePlayers[0];
+    
+    function switchTurn() {
+        if (currentPlayer == gamePlayers[0]) {
+            currentPlayer = gamePlayers[1];
+        } else {
+            currentPlayer = gamePlayers[0]
+        }
+    }
+
+    function showTurn() {
+        return currentPlayer;
+    }
+
+    return {switchTurn, showTurn}
 })();
