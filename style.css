@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Cascadia Mono';
+    src: url('font/CascadiaMono.woff2') format('woff2'),
+         url('font/CascadiaMono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; 
+}
+
+body {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Cascadia Mono', monospace, system-ui;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 40px;
+}
+.blue_span {
+    color: #3e9cd6;
+}
