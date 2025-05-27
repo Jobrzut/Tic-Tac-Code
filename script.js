@@ -7,7 +7,7 @@ let gameboard = (function () {
 
     function putMark(index) {
         if (0 <= index && index < 9 && board[index] == "" && isWon() == false && isDraw() == false) {
-            mark = game.showTurn().mark;
+            let mark = game.showTurn().mark;
             board[index] = mark;
             game.switchTurn();
             if (isWon() !== false) {
