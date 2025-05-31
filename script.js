@@ -1,3 +1,5 @@
+const gameboardFields = document.querySelectorAll(".gameboard>div")
+
 let gameboard = (function () {
     let board = Array(9).fill("");
 
@@ -15,6 +17,7 @@ let gameboard = (function () {
             } else if (isDraw() !== false) {
                 console.log(`It's a draw!`)
             }
+            displayController.displayFields();
         }
     }
 
@@ -96,4 +99,18 @@ let game = (function () {
     }
 
     return {switchTurn, showTurn}
+})();
+
+let displayController = (function() {
+    function displayFields() {
+        gameboardList = gameboard.getBoard();
+        for(let i=0;i<9;i++) {
+            if (gameboardList[i] == "x") {
+                gameboardFields[i].classList.add("x");
+            } else if (gameboardList[i] == "o") {
+                gameboardFields[i].classList.add("o");
+            }
+        }
+    }
+    return {displayFields}
 })();
