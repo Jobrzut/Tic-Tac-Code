@@ -1,4 +1,9 @@
-const gameboardFields = document.querySelectorAll(".gameboard>div")
+const gameboardFields = document.querySelectorAll(".gameboard>div");
+const startButton = document.querySelector(".start button");
+const firstPlayerInput = document.querySelector("#firstPlayer");
+const secondPlayerInput = document.querySelector("#secondPlayer");
+const gameSection = document.querySelector(".game");
+const startSection = document.querySelector(".start");
 
 let gameboard = (function () {
     let board = Array(9).fill("");
@@ -82,10 +87,14 @@ let players = (function () {
 })();
 
 let game = (function () {
-    players.addPlayers("Julek", "Artur");
-    const gamePlayers = players.showPlayers();
-    let currentPlayer = gamePlayers[0];
+    let gamePlayers;
+    let currentPlayer;
     
+    function startTurn() {
+        gamePlayers = players.showPlayers();
+        currentPlayer = gamePlayers[0];
+    }
+
     function switchTurn() {
         if (currentPlayer == gamePlayers[0]) {
             currentPlayer = gamePlayers[1];
@@ -98,7 +107,7 @@ let game = (function () {
         return currentPlayer;
     }
 
-    return {switchTurn, showTurn}
+    return {switchTurn, showTurn, startTurn}
 })();
 
 let displayController = (function() {
@@ -113,6 +122,17 @@ let displayController = (function() {
         }
     }
 
+    function startTheGame() {
+        startButton.addEventListener("click", () => {
+            if (firstPlayerInput.value != "" && secondPlayerInput.value != "") {
+                players.addPlayers(firstPlayerInput.value, secondPlayerInput.value);
+                game.startTurn()
+                startSection.style.display = "none";
+                gameSection.style.display = "block";
+            }
+        });
+    }
+
     function putMarkDOM() {
         gameboardFields.forEach((div, index) => {
             div.addEventListener("click", () => {
@@ -120,7 +140,8 @@ let displayController = (function() {
             });
         });
     }
-    return {displayFields, putMarkDOM}
+    return {displayFields, startTheGame, putMarkDOM}
 })();
 
+displayController.startTheGame();
 displayController.putMarkDOM();
