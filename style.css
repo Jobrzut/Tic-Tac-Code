@@ -104,12 +104,33 @@ h2 {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 75%;
+    animation: x-appear 0.05s ease-in-out;
 }
 
 .o {
     background: url("imgs/o.svg") no-repeat center;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 95%;   
+    animation: o-appear 0.1s ease-in-out;
+}
+
+@keyframes x-appear {
+  from {
+    background-size: 50%;
+  }
+
+  to {
+    background-size: 75%;
+  }
+}
+
+@keyframes o-appear {
+  from {
+    background-size: 70%;
+  }
+
+  to {
     background-size: 95%;
-    
+  }
 }
