@@ -112,5 +112,15 @@ let displayController = (function() {
             }
         }
     }
-    return {displayFields}
+
+    function putMarkDOM() {
+        gameboardFields.forEach((div, index) => {
+            div.addEventListener("click", () => {
+                gameboard.putMark(index);
+            });
+        });
+    }
+    return {displayFields, putMarkDOM}
 })();
+
+displayController.putMarkDOM();
