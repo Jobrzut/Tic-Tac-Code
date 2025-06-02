@@ -22,7 +22,7 @@ let gameboard = (function () {
             game.switchTurn();
             displayController.displayTurnInfo();
             if (isWon() !== false) {
-                console.log(`Winner: ${isWon()}`)
+                displayController.displayWinnerInfo();
             } else if (isDraw() !== false) {
                 console.log(`It's a draw!`)
             }
@@ -158,7 +158,19 @@ let displayController = (function() {
         }
     }
 
-    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo}
+    function displayWinnerInfo() {
+        pFirstPart.textContent = "// ";
+        pSecondPart.textContent = " won!";
+        if (gameboard.isWon() == "x") {
+            userSpan.textContent = players.showPlayers()[0].name;
+            userSpan.style.color = "#a363d6";
+        } else if (gameboard.isWon() == "o") {
+            userSpan.textContent = players.showPlayers()[1].name;
+            userSpan.style.color = "#ffd710";
+        }
+    }
+
+    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo, displayWinnerInfo}
 })();
 
 displayController.startTheGame();
