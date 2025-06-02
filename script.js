@@ -4,6 +4,9 @@ const firstPlayerInput = document.querySelector("#firstPlayer");
 const secondPlayerInput = document.querySelector("#secondPlayer");
 const gameSection = document.querySelector(".game");
 const startSection = document.querySelector(".start");
+const userSpan = document.querySelector(".game_message .user");
+const pFirstPart = document.querySelector(".game_message .pFirstPart");
+const pSecondPart = document.querySelector(".game_message .pSecondPart");
 
 let gameboard = (function () {
     let board = Array(9).fill("");
@@ -17,6 +20,7 @@ let gameboard = (function () {
             let mark = game.showTurn().mark;
             board[index] = mark;
             game.switchTurn();
+            displayController.displayTurnInfo();
             if (isWon() !== false) {
                 console.log(`Winner: ${isWon()}`)
             } else if (isDraw() !== false) {
@@ -129,6 +133,7 @@ let displayController = (function() {
                 game.startTurn()
                 startSection.style.display = "none";
                 gameSection.style.display = "block";
+                displayController.displayTurnInfo();
             }
         });
     }
@@ -140,7 +145,20 @@ let displayController = (function() {
             });
         });
     }
-    return {displayFields, startTheGame, putMarkDOM}
+
+    function displayTurnInfo() {
+        current = game.showTurn();
+        pFirstPart.textContent = "// It's ";
+        pSecondPart.textContent = "'s turn!";
+        userSpan.textContent = current.name;
+        if (current.mark == "x") {
+            userSpan.style.color = "#a363d6";
+        } else {
+            userSpan.style.color = "#ffd710";
+        }
+    }
+
+    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo}
 })();
 
 displayController.startTheGame();

@@ -194,3 +194,9 @@ h2 {
 .start button:hover {
   background-color: transparent;
 }
+
+.game_message {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #808072;
+}
