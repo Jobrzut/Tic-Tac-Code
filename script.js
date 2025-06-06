@@ -24,7 +24,7 @@ let gameboard = (function () {
             if (isWon() !== false) {
                 displayController.displayWinnerInfo();
             } else if (isDraw() !== false) {
-                console.log(`It's a draw!`)
+                displayController.displayDrawInfo();
             }
             displayController.displayFields();
         }
@@ -170,7 +170,13 @@ let displayController = (function() {
         }
     }
 
-    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo, displayWinnerInfo}
+    function displayDrawInfo() {
+        userSpan.textContent = "";
+        pFirstPart.textContent = "";
+        pSecondPart.textContent = "// It's a draw!";
+    }
+
+    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo, displayWinnerInfo, displayDrawInfo}
 })();
 
 displayController.startTheGame();
