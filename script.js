@@ -25,6 +25,12 @@ let gameboard = (function () {
             if (isWon() !== false) {
                 displayController.displayWinnerInfo();
                 displayController.addRestartButton();
+                gamePlayers = players.showPlayers();
+                if (isWon() == "x") {
+                    gamePlayers[0].addWin();
+                } else if (isWon() == "o") {
+                    gamePlayers[1].addWin();
+                }
             } else if (isDraw() !== false) {
                 displayController.displayDrawInfo();
                 displayController.addRestartButton();
@@ -76,9 +82,16 @@ let gameboard = (function () {
 
 let players = (function () {
     function newPlayer (name, mark) {
+        let wins = 0;
+        function addWin() {
+            wins++;
+        }
+        function showWins() {
+            return wins;
+        }
         if (mark.toLowerCase() === "x" || mark.toLowerCase() === "o") {
             mark = mark.toLowerCase();
-            return {name,mark}
+            return {name,mark,showWins,addWin}
         }
     }
     
