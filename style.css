@@ -200,3 +200,17 @@ h2 {
   margin-bottom: 50px;
   color: #808072;
 }
+
+.restart {
+  background-color: #808072;
+  color: #1e1e1e;
+  border: 2px solid #808072;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.restart:hover {
+  background-color: transparent;
+  color: #808072;
+}

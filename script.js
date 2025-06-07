@@ -4,6 +4,7 @@ const firstPlayerInput = document.querySelector("#firstPlayer");
 const secondPlayerInput = document.querySelector("#secondPlayer");
 const gameSection = document.querySelector(".game");
 const startSection = document.querySelector(".start");
+const gameMessage = document.querySelector(".game_message");
 const userSpan = document.querySelector(".game_message .user");
 const pFirstPart = document.querySelector(".game_message .pFirstPart");
 const pSecondPart = document.querySelector(".game_message .pSecondPart");
@@ -23,8 +24,10 @@ let gameboard = (function () {
             displayController.displayTurnInfo();
             if (isWon() !== false) {
                 displayController.displayWinnerInfo();
+                displayController.addRestartButton();
             } else if (isDraw() !== false) {
                 displayController.displayDrawInfo();
+                displayController.addRestartButton();
             }
             displayController.displayFields();
         }
@@ -32,6 +35,7 @@ let gameboard = (function () {
 
     function resetBoard () {
         board = Array(9).fill("");
+        game.startTurn();
     }
 
     function isWon() {
@@ -116,8 +120,9 @@ let game = (function () {
 
 let displayController = (function() {
     function displayFields() {
-        gameboardList = gameboard.getBoard();
+        let gameboardList = gameboard.getBoard();
         for(let i=0;i<9;i++) {
+            gameboardFields[i].className = "";
             if (gameboardList[i] == "x") {
                 gameboardFields[i].classList.add("x");
             } else if (gameboardList[i] == "o") {
@@ -176,7 +181,20 @@ let displayController = (function() {
         pSecondPart.textContent = "// It's a draw!";
     }
 
-    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo, displayWinnerInfo, displayDrawInfo}
+    function addRestartButton() {
+        let restartButton = document.createElement("button");
+        restartButton.textContent = "Restart";
+        restartButton.classList.add("restart");
+        gameMessage.appendChild(restartButton);
+        restartButton.addEventListener("click", (e) => {
+            gameboard.resetBoard();
+            e.target.remove();
+            displayFields();
+            displayController.displayTurnInfo();
+        });
+    }
+
+    return {displayFields, startTheGame, putMarkDOM, displayTurnInfo, displayWinnerInfo, displayDrawInfo, addRestartButton}
 })();
 
 displayController.startTheGame();
