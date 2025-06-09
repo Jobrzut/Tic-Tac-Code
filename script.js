@@ -5,6 +5,7 @@ const secondPlayerInput = document.querySelector("#secondPlayer");
 const gameSection = document.querySelector(".game");
 const startSection = document.querySelector(".start");
 const gameMessage = document.querySelector(".game_message");
+const gameMessages = document.querySelector(".game_messages");
 const userSpan = document.querySelector(".game_message .user");
 const pFirstPart = document.querySelector(".game_message .pFirstPart");
 const pSecondPart = document.querySelector(".game_message .pSecondPart");
@@ -22,15 +23,15 @@ let gameboard = (function () {
             board[index] = mark;
             game.switchTurn();
             displayController.displayTurnInfo();
+            gamePlayers = players.showPlayers();
             if (isWon() !== false) {
-                displayController.displayWinnerInfo();
-                displayController.addRestartButton();
-                gamePlayers = players.showPlayers();
                 if (isWon() == "x") {
                     gamePlayers[0].addWin();
                 } else if (isWon() == "o") {
                     gamePlayers[1].addWin();
                 }
+                displayController.displayWinnerInfo();
+                displayController.addRestartButton();
             } else if (isDraw() !== false) {
                 displayController.displayDrawInfo();
                 displayController.addRestartButton();
@@ -179,6 +180,20 @@ let displayController = (function() {
     function displayWinnerInfo() {
         pFirstPart.textContent = "// ";
         pSecondPart.textContent = " won!";
+        let results = document.createElement("p");
+        results.className = "results";
+        let resultsFirst = document.createElement("span");
+        let resultsMiddle = document.createElement("span");
+        let resultsSecond = document.createElement("span");
+        results.textContent = "// It's ";
+        resultsFirst.textContent = players.showPlayers()[0].showWins();
+        resultsFirst.style.color = "#a363d6";
+        resultsSecond.textContent = players.showPlayers()[1].showWins();
+        resultsSecond.style.color = "#ffd710";
+        resultsMiddle = ":";
+        results.append(resultsFirst,resultsMiddle,resultsSecond);
+        gameMessages.appendChild(results);
+
         if (gameboard.isWon() == "x") {
             userSpan.textContent = players.showPlayers()[0].name;
             userSpan.style.color = "#a363d6";
@@ -198,12 +213,16 @@ let displayController = (function() {
         let restartButton = document.createElement("button");
         restartButton.textContent = "Restart";
         restartButton.classList.add("restart");
-        gameMessage.appendChild(restartButton);
+        gameMessages.appendChild(restartButton);
         restartButton.addEventListener("click", (e) => {
             gameboard.resetBoard();
             e.target.remove();
             displayFields();
             displayController.displayTurnInfo();
+            result = document.querySelector(".results");
+            if (result) {
+                result.remove();
+            }
         });
     }
 

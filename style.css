@@ -195,10 +195,13 @@ h2 {
   background-color: transparent;
 }
 
-.game_message {
-  text-align: center;
+.game_messages {
   margin-bottom: 50px;
   color: #808072;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .restart {
@@ -214,3 +217,4 @@ h2 {
   background-color: transparent;
   color: #808072;
 }
+
